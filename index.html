@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07101f" />
+  <meta name="description" content="StreamDrop — responsive video download and conversion interface for media you are allowed to download." />
+  <title>StreamDrop — Video Download Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="StreamDrop home"><span class="brand-mark">S</span><span>StreamDrop</span></a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="#home">Home</a><a href="#how">How it works</a><a href="#history">History</a></nav>
+      <div class="top-actions"><div class="live-counter" title="Verified successful downloads recorded by your backend"><span class="live-dot"></span><span id="globalCount">0</span><small>successful downloads</small></div><button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">☼</button></div>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <div class="eyebrow">FAST • CLEAN • MULTI-DEVICE</div>
+          <h1>Download in the <span>quality you choose.</span></h1>
+          <p class="hero-text">Paste a publicly downloadable video URL, select the available quality, choose a format, and start. The interface adapts automatically to phones, tablets, laptops and large displays.</p>
+
+          <form class="download-card" id="downloadForm">
+            <label class="sr-only" for="videoUrl">Video URL</label>
+            <div class="url-row">
+              <div class="url-input-wrap"><span class="link-icon">↗</span><input id="videoUrl" type="url" inputmode="url" autocomplete="off" placeholder="Paste a direct video link…" required /><button type="button" class="clear-btn" id="clearBtn" aria-label="Clear URL">×</button></div>
+              <button class="primary-btn" type="submit">Download</button>
+            </div>
+
+            <div class="option-grid">
+              <label class="select-field"><span>Quality</span><select id="qualitySelect"><option value="best" selected>Best available (recommended)</option><option value="16k">16K Ultra HD</option><option value="8k">8K Ultra HD</option><option value="4k">4K Ultra HD</option><option value="1080p">1080p Full HD</option><option value="720p">720p HD</option><option value="original">Original / Source quality</option></select></label>
+              <label class="select-field"><span>Format</span><select id="formatSelect"><option value="original" selected>Original format</option><option value="mp4">MP4</option><option value="webm">WEBM</option><option value="mov">MOV</option><option value="audio">Audio only (MP3)</option></select></label>
+              <label class="select-field" style="flex-direction:row;align-items:center;gap:8px;"><input type="checkbox" id="privateDownload" style="width:auto;"><span>Don't save this download to history</span></label>
+            </div>
+            <div class="quality-note"><span id="selectionInfo">Best available keeps the source quality whenever the backend exposes it.</span><button type="button" class="small-link" id="advancedBtn">Advanced</button></div>
+
+            <div class="progress-panel" id="progressPanel" hidden>
+              <div class="progress-head"><span id="progressLabel">Preparing…</span><strong id="progressPercent">0%</strong></div><div class="progress"><span id="progressBar"></span></div><div class="progress-meta"><span id="progressMeta">Waiting for download…</span><button type="button" class="cancel-btn" id="cancelBtn">Cancel</button></div>
+            </div>
+            <div class="form-foot"><span id="statusText">Use only content you own or are explicitly allowed to download.</span><span class="safe-badge">● No account required</span></div>
+          </form>
+
+          <div class="platform-row"><span class="platform-label">Input types</span><span class="pill">MP4</span><span class="pill">WEBM</span><span class="pill">MOV</span><span class="pill">M4V</span><span class="pill">Direct media URL</span></div>
+          <p class="legal-note">Protected, DRM-encrypted, paywalled, or access-controlled streams are not bypassed.</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="glow"></div><div class="device-card"><div class="device-top"><span></span><span></span><span></span><b>STREAMDROP</b></div><div class="preview-box"><div class="preview-quality">BEST QUALITY</div><div class="play-ring">▶</div><div class="preview-lines"><i></i><i></i><i></i></div></div><div class="download-line"><span id="deviceQuality">Best available • MP4</span><strong>Ready</strong></div><div class="progress"><span id="deviceProgress"></span></div></div>
+          <div class="float-tag tag-one">⚡ Fast</div><div class="float-tag tag-two">✓ Responsive</div><div class="float-tag tag-three">4K • 8K • 16K*</div>
+        </div>
+      </section>
+
+      <section class="stats-strip" aria-label="StreamDrop statistics"><div><strong id="statDownloads">0</strong><span>successful downloads</span></div><div><strong id="statFormats">5</strong><span>output choices</span></div><div><strong>∞</strong><span>quality profiles</span></div></section>
+
+      <section class="trust-grid" id="how"><article><div class="feature-icon">◆</div><div><h3>Best quality by default</h3><p>“Best available” is selected automatically, while your backend decides which source qualities actually exist.</p></div></article><article><div class="feature-icon">↕</div><div><h3>Conversion ready</h3><p>Format selection is built in. Real transcoding should run on a server worker, not inside the browser.</p></div></article><article><div class="feature-icon">↯</div><div><h3>Real global counter</h3><p>The public number should come from one shared database-backed endpoint, not from local browser storage.</p></div></article></section>
+
+      <section class="content-section" id="history"><div class="section-heading"><div><div class="eyebrow">YOUR ACTIVITY</div><h2>Recent downloads</h2></div><button class="ghost-btn" id="clearHistory">Clear history</button></div><div class="history-list" id="historyList"></div><div class="empty-state" id="emptyState"><div class="empty-icon">↓</div><h3>No downloads yet</h3><p>Your recent permitted direct-file downloads will appear here.</p></div></section>
+    </main>
+
+    <footer class="footer"><div><strong>StreamDrop</strong><span>© 2026</span></div><p>Designed for responsive use. Download and convert only content you have permission to access.</p></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
